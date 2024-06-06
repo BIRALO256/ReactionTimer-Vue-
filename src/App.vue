@@ -1,16 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1> hello jovic</h1>
+  <button @click="start" >play</button>
+  <Block v-if="isplaying" :disabled = "isplaying" v-bind:delay="delay" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import Block from './components/Block.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: { Block},
+  data() {
+    return{
+        isplaying : false,
+        delay : null,
+    }
+  },
+  methods:{
+    start(){
+      this.delay =2000 + Math.random() *5000 //so here we will get a radom number from 0 - 5000 mili secconds
+      this.isplaying =!this.isplaying
+    }
+  },
 }
 </script>
 
