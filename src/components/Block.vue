@@ -1,6 +1,7 @@
 <template>
-    <div class="block"  v-if="showBlock">
+    <div class="block"  v-if="showBlock" @click="stopTimer">
         {{ delay }}
+        {{ reactionTime }}
     </div>
 </template>
 
@@ -14,18 +15,35 @@ export default ({
 
     data(){
         return{
-        showBlock:false
+        showBlock:false,
+        timer: null,
+        reactionTime:0,
         }
     },
 
     mounted(){
         // you do some stuff here when the componet in mounted on the DOM
-        setTimeout(()=>{}, this.delay) // when his component is being mounted we set some time which we passed a prop
+        setTimeout(()=>{
+            this.showBlock =true
+            this.startTimer()
+        }, this.delay) // when his component is being mounted we set some time which we passed a prop
     },
 
     updated(){
 
 
+    },
+
+    methods:{
+        startTimer(){
+            this.timer =setInterval(() => {
+                this.reactionTime +=10
+            }, 10);
+        },
+        stopTimer(){
+            clearInterval(this.timer)
+            this.$emit('end',this.reactionTime)
+        }
     }
 
 })
